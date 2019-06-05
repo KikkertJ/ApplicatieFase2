@@ -16,18 +16,38 @@
                 font-family: Arial, Helvetica, sans-serif;
                 color: #ffffff;
             }
-            img.align-center {
+            div,img.align-center {
                 display: block;
                 margin: auto;
             }
-            #logo {
-                width: 266px;
-                height: 186px;
+            .logo {
                 transition: ease-in-out;
                 transition-delay: .15s;
             }
-            #logo:hover {
-                transform: scale(1.5);
+            .logo:hover {
+                transform: scale(1.3);
+            }
+            .rotate {
+                display: flex;
+                align-items: center;
+                margin: auto;
+                width: 500px;
+                height: 500px;
+                -ms-animation: rotation 2s linear infinite;
+
+                position: relative;
+                padding: 2em;
+                box-sizing: border-box;
+
+                color: #ffffff;
+                border: solid 10px;
+                border-radius: 300px/300px;
+                background-image: -webkit-linear-gradient(#000, transparent);
+            }
+
+            @-ms-keyframes rotation {
+                0%      {-ms-transform: rotate(0deg);}
+                100%    {-ms-transform: rotate(360);}
             }
         </style>
     </head>
@@ -35,8 +55,11 @@
         <h1>
             Hier komt de tekst.
         </h1>
-        <div>
-            <img src="https://www.workingspirit.nl/themes/workingspirit/images/beeldmerk.svg" alt="Working Spirit" id="logo" class="align-center"/>
-        </div>
+        <br>
+            <div class="align-center logo rotate">
+                <a href="https://www.workingspirit.nl/academy/">
+                    <img src="https://www.workingspirit.nl/themes/workingspirit/images/beeldmerk.svg" alt="Working Spirit" width="266" height="186" />
+                </a>
+            </div>
     </body>
 </html>
