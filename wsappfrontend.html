@@ -1,12 +1,16 @@
 <html>
     <head>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script>
             
         </script>
         <style>
             #background {
                 background-color: #00aeef;
-                
+                /* background-color: #ffffff; */
+                background-image: url(https://www.workingspirit.nl/assets/Uploads/Landingspages/_resampled/FillWyIxMDgwIiwiODAwIl0/Academy-people2.jpg);
+                background-repeat: no-repeat;
+                background-position: center center;
             }
             #background > h1 {
                 font: bold 30px arial, sans-serif;
@@ -20,12 +24,19 @@
                 display: block;
                 margin: auto;
             }
+            #center {
+                display: flex;
+                align-items: center;
+                margin: auto;
+                padding-left: 25%;
+            }
             .logo {
                 transition: ease-in-out;
                 transition-delay: .15s;
             }
             .logo:hover {
-                transform: scale(1.3);
+                transform: scale(1.15);
+                box-shadow: 0px 0px 8px 7px rgba(0,0,0,0.5);
             }
             .rotate {
                 display: flex;
@@ -42,7 +53,7 @@
                 color: #ffffff;
                 border: solid 10px;
                 border-radius: 300px/300px;
-                background-image: -webkit-linear-gradient(#000, transparent);
+                /* background-image: -webkit-linear-gradient(rgba(0,0,0,0.5), transparent); */
             }
 
             @-ms-keyframes rotation {
@@ -53,13 +64,14 @@
     </head>
     <body id=background>
         <h1>
-            Hier komt de tekst.
+            <!-- Hier komt de tekst. -->
+            <br>
         </h1>
         <br>
         <a href="managegebruikers.html"> manage gebruikers </a>
             <div class="align-center logo rotate">
                 <a href="https://www.workingspirit.nl/academy/">
-                    <img src="https://www.workingspirit.nl/themes/workingspirit/images/beeldmerk.svg" alt="Working Spirit" width="266" height="186" />
+                    <img src="https://www.workingspirit.nl/themes/workingspirit/images/beeldmerk.svg" alt="Working Spirit" width="266" height="186" id="center"/>
                 </a>
             </div>
     </body>
