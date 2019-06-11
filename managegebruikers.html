@@ -1,0 +1,116 @@
+<html>
+    <head>
+        <script>
+            var server = "http://localhost:8082";
+            function vraagAlleGebruikersOp(){
+                var xhr = new XMLHttpRequest();
+                var tabelInhoud = "";
+                xhr.onreadystatechange = function(){
+                    if(this.readyState == 4){
+                        var gebruikers = JSON.parse(this.responseText);
+                        for(var x = 0 ; x < gebruikers.length; x++){
+                            tabelInhoud += "<tr><td>"+gebruikers[x].voornaam+"</td></tr>";
+                        }
+                        document.getElementById("gebruikersTabel").innerHTML = tabelInhoud;
+                    }
+                }
+                xhr.open("GET", server+"/alleGebruikers", true);
+                xhr.send();
+            }
+            function toevoegenGebruiker(){
+                var gebruiker = {};
+                gebruiker.voornaam = document.getElementById("invoerVoornaam").value;
+                gebruiker.achternaam = document.getElementById("invoerAchternaam").value;
+                gebruiker.emailadres = document.getElementById("invoerEmailadres").value;
+                console.log(gebruiker);
+                gebruiker = JSON.stringify(gebruiker);
+                postOpBackend(gebruiker, server+"/voegGebruikerToe", gebruikerPostCallback);
+            }
+            function postOpBackend(jsonTeVersturen , url, callback){
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function(){
+                    console.log(this.responseText);
+                    console.log(this.readyState);
+                    if(this.readyState == 4){
+                        gebruikerPostCallback(this.responseText);
+                    }
+                }
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-Type","application/json");
+                xhr.send(jsonTeVersturen);
+            }
+            function gebruikerPostCallback(response){
+                alert(response);
+            }
+        </script>
+        <style>
+            #background {
+                background-color: #00aeef;
+                
+            }
+            #background > h1 {
+                font: bold 30px arial, sans-serif;
+                color: #ffffff;
+            }
+            #background > div {
+                font-family: Arial, Helvetica, sans-serif;
+                color: #ffffff;
+            }
+            div,img.align-center {
+                display: block;
+                margin: auto;
+            }
+            .logo {
+                transition: ease-in-out;
+                transition-delay: .15s;
+            }
+            .logo:hover {
+                transform: scale(1.3);
+            }
+            .rotate {
+                display: flex;
+                align-items: center;
+                margin: auto;
+                width: 500px;
+                height: 500px;
+                -ms-animation: rotation 2s linear infinite;
+
+                position: relative;
+                padding: 2em;
+                box-sizing: border-box;
+
+                color: #ffffff;
+                border: solid 10px;
+                border-radius: 300px/300px;
+                background-image: -webkit-linear-gradient(#000, transparent);
+            }
+
+            @-ms-keyframes rotation {
+                0%      {-ms-transform: rotate(0deg);}
+                100%    {-ms-transform: rotate(360);}
+            }
+        </style>
+    </head>
+    <body id=background>
+        <a href="wsappfrontend.html" > Terug naar hoofdpagina </a>
+        <h1>
+            Manage Gebruikers
+        </h1>
+        <br>
+        <div>
+            <input type=button onclick=vraagAlleGebruikersOp() value="vraag alle gebruikers op" >
+            <table>
+                <tr><th></th><th></th></tr>
+                <tr><td>Voornaam: </td><td><input type=text id=invoerVoornaam ></td></tr>
+                <tr><td>Achternaam: </td><td><input type=text id=invoerAchternaam ></td></tr>
+                <tr><td>Emailadres: </td><td><input type=text id=invoerEmailadres ></td></tr>
+                <tr><td></td> <td><input type=button onclick=toevoegenGebruiker() value=toevoegen ></td></tr>
+            </table>
+        </div> 
+        <div>
+            <table id=gebruikersTabel >
+
+            </table>
+        </div>
+    </body>
+</html>
