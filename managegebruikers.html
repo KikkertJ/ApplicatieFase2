@@ -3,7 +3,19 @@
         <script>
             var server = "http://localhost:8082";
             function vraagAlleGebruikersOp(){
-                console.log("vraag alle gebruikers op");
+                var xhr = new XMLHttpRequest();
+                var tabelInhoud = "";
+                xhr.onreadystatechange = function(){
+                    if(this.readyState == 4){
+                        var gebruikers = JSON.parse(this.responseText);
+                        for(var x = 0 ; x < gebruikers.length; x++){
+                            tabelInhoud += "<tr><td>"+gebruikers[x].voornaam+"</td></tr>";
+                        }
+                        document.getElementById("gebruikersTabel").innerHTML = tabelInhoud;
+                    }
+                }
+                xhr.open("GET", server+"/alleGebruikers", true);
+                xhr.send();
             }
             function toevoegenGebruiker(){
                 var gebruiker = {};
@@ -93,8 +105,12 @@
                 <tr><td>Achternaam: </td><td><input type=text id=invoerAchternaam ></td></tr>
                 <tr><td>Emailadres: </td><td><input type=text id=invoerEmailadres ></td></tr>
                 <tr><td></td> <td><input type=button onclick=toevoegenGebruiker() value=toevoegen ></td></tr>
-
             </table>
         </div> 
+        <div>
+            <table id=gebruikersTabel >
+
+            </table>
+        </div>
     </body>
 </html>
