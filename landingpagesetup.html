@@ -14,11 +14,39 @@
       
     </script>
     <style>
+      #navbar {
+        height: 40px;
+      }
+      
+      .navbar-nav {
+        color: #00aeef;
+      }
+      
       #header {
         background: url("https://www.workingspirit.nl/assets/Uploads/HeaderAfbeeldingen/HH-60257639.jpg") no-repeat fixed;
         background-size: cover;
         color: #ffffff;
-        height: 600px;
+        height: 675px;
+        padding-top: 7%;
+      }
+
+      #headtext {
+        font-weight: bold;
+        font-size: 60px;
+        line-height: 65px;
+        margin-bottom: 10px;
+        padding-top: 28%;
+      }
+
+      .textlogo {
+        font-weight: bold;
+        font-size: 40px;
+        line-height: 35px;
+      }
+
+      .textlogo p {
+        display: inline;
+        color: #00aeef;
       }
 
       #mainbody {
@@ -54,10 +82,45 @@
   </head>
   <body>
     <!-- NAVBAR HIER -->
+    <nav class="navbar navbar-expand-sm bg-light fixed-top" id="navbar">
+      <!-- Brand/logo -->
+      <a class="navbar-brand" href="#">
+        <img src="https://www.workingspirit.nl/themes/workingspirit/images/beeldmerk_blue.png" alt="logo" style="width:40px;" id="navlogo">
+      </a>
+      
+      <!-- Links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link 1</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link 2</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link 3</a>
+        </li>
+      </ul>
+    </nav>
+
     <div class="row" id="header">
       <div class="col-sm-2"></div>
-      <div class="col-sm-10">
-        Dit is de header.
+      <div class="col-sm-3">
+        <a href="https://workingspirit.nl/">
+          <img src="https://www.workingspirit.nl/themes/workingspirit/images/beeldmerk.svg" alt="Working Spirit beeldmerk">
+        </a>
+        <h2 id="headtext">
+          Verrijk je kennis en doe mee met de bootcamp!
+        </h2>
+      </div>
+      <div class="col-sm-3">
+        <h1 class="textlogo">
+          Working <br>
+          Spirit
+          <p>Bootcamp</p>
+        </h1>
+      </div>
+      <div class="col-sm-2">
+        Menuutje?
       </div>
       <div class="col"></div>
     </div>
@@ -73,7 +136,7 @@
         </div>
         <div class="col-sm-2">
           Wachtwoord
-          <input type="text">
+          <input type="password" minlength="8" maxlength="25">
         </div>
         <div class="col-sm-1">
           <button id="login">Login</button>
@@ -114,7 +177,7 @@
             Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </div>
           <div class="col-sm-3">
-            Afbeelding.
+            Agenda.
           </div>
           <div class="col"></div>
         </div>
@@ -159,7 +222,7 @@
 
     <!-- FOOTER -->
     <div class="row" id="footer">
-      <div class="col"></div>
+      <div class="col-sm-2"></div>
       <div class="col-sm-2">
         Logo.
       </div>
