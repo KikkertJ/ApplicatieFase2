@@ -11,7 +11,26 @@
     <title>Working Spirit Bootcamp</title>
 
     <script>
-      
+      var server = "http://localhost:8082";
+      function login() {
+        var gebruiker = {};
+        gebruiker.emailadres = document.getElementById("email");
+        gebruiker.wachtwoord = document.getElementById("password");
+        var JSONgebruiker = JSON.stringify(gebruiker);
+        console.log(JSONgebruiker);
+
+        var xhr = new XMLHttpRequest;
+        xhr.onreadystatechange = function(){
+          if(this.readyState == 4){
+            
+            window.location.href = 'student.html';
+          }
+        }
+        xhr.open("POST", server+"/emailGebruiker/emailadres", true);
+        xhr.setRequestHeader('Content-Type','application/json');
+        xhr.send();
+      }
+
     </script>
     <style>
       #navbar {
@@ -53,6 +72,10 @@
         background: #ffffff;
         color: #808285;
       }
+      
+      .row {
+        padding-top: 1%;
+      }
 
       #login {
         background-color: #00aeef;
@@ -68,6 +91,10 @@
 
       #introtext {
         color: #00aeef;
+      }
+
+      #bottomrow {
+        padding-bottom: 5%;
       }
 
       #footer {
@@ -132,14 +159,14 @@
         <div class="col-sm-2"></div>
         <div class="col-sm-2">
           E-mailadres
-          <input type="text">
+          <input type="text" id="email">
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2" id="password">
           Wachtwoord
           <input type="password" minlength="8" maxlength="25">
         </div>
         <div class="col-sm-1">
-          <button id="login">Login</button>
+          <button onclick="login()" id="login">Login</button>
         </div>
         <div class="col"></div>
       </div>
@@ -201,7 +228,7 @@
         </div>
 
         <!-- THIRD ROW -->
-        <div class="row">
+        <div class="row" id="bottomrow">
             <div class="col"></div>
             <div class="col-sm-2 introtitel">
               introductie bootcamp, dag 3
