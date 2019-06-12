@@ -14,8 +14,8 @@
       var server = "http://localhost:8082";
       function login() {
         var gebruiker = {};
-        gebruiker.emailadres = document.getElementById("email");
-        gebruiker.wachtwoord = document.getElementById("password");
+        gebruiker.emailadres = document.getElementById("email").value;
+        gebruiker.wachtwoord = document.getElementById("password").value;
         var JSONgebruiker = JSON.stringify(gebruiker);
         console.log(JSONgebruiker);
 
@@ -23,7 +23,7 @@
         xhr.onreadystatechange = function(){
           if(this.readyState == 4){
             
-            window.location.href = 'student.html';
+            // window.location.href = 'student.html';
           }
         }
         xhr.open("POST", server+"/emailGebruiker/emailadres", true);
@@ -161,9 +161,9 @@
           E-mailadres
           <input type="text" id="email">
         </div>
-        <div class="col-sm-2" id="password">
+        <div class="col-sm-2">
           Wachtwoord
-          <input type="password" minlength="8" maxlength="25">
+          <input type="password" minlength="8" maxlength="25" id="password">
         </div>
         <div class="col-sm-1">
           <button onclick="login()" id="login">Login</button>
