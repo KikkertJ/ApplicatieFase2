@@ -1,6 +1,35 @@
 <html>
     <head>
         <script>
+            window.onload= function(){
+             opvragenLesstof();
+             }
+
+
+            function opvragenLesstof(){
+                var htmlrequest = new XMLHttpRequest();
+                var result = "";
+                htmlrequest.onreadystatechange = function(){
+                    if (this.readyState == 4){
+                    console.log("in htmlrequest" + this.responseText + this.readyState);
+                    var JSONResponseText = JSON.parse(this.responseText);
+                    console.log(JSONResponseText);
+                    var getal;
+                    for (getal = JSONResponseText.length -1;getal >= 0; getal -=1){
+                        console.log(JSONResponseText[getal].beschrijving);
+                        result += JSONResponseText[getal].titel + "<br>";
+                        result += JSONResponseText[getal].code + "<br>";
+                        result += JSONResponseText[getal].beschrijving + "<br>" + "<br>";
+            
+                    }
+                    var elem = document.getElementById("dag1");
+                    elem.innerHTML = result;
+
+                    }
+                }
+                htmlrequest.open("GET", "http://localhost:8082/VraagLesstofOp",true);
+                htmlrequest.send();
+            }
             
         </script>
         <style>
@@ -9,5 +38,8 @@
     </head>
     <body>
         Welkom student!
+
+        <p id=dag1></p>
+    
     </body>
 </html>
