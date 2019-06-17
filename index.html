@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Working Spirit Bootcamp</title>
+
+    <script>
+        var server = "http://localhost:8082";
+        function login() {
+            var gebruiker = {};
+            gebruiker.emailadres = document.getElementById("email").value;
+            gebruiker.wachtwoord = document.getElementById("password").value;
+            var JSONgebruiker = JSON.stringify(gebruiker);
+            console.log(JSONgebruiker);
+
+            var xhr = new XMLHttpRequest;
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    console.log(this.response);
+
+                    if (this.response == "true") {
+                        window.location.href = 'student.html';
+                    } else {
+                        document.getElementById("foutmelding").innerHTML = "Het e-mailadres of wachtwoord is onjuist."
+                    }
+                }
+            }
+            xhr.open("POST", server + "/inlogGebruiker", true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSONgebruiker);
+        }
+
+        function loginEnter() {
+            if (event.keyCode == 13 || event.which == 13) {
+                login();
+            }
+        }
+
+    </script>
+    <style>
+        body {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        }
+
+        .container-fluid {
+            padding-left: 19%;
+            padding-right: 19%;
+        }
+
+        input {
+            color: #00aeef;
+        }
+
+        #navbar {
+            background-color: #ffffff;
+            height: 40px;
+            padding-left: 0%;
+            padding-right: 0%;
+        }
+
+        .navbar-nav a {
+            color: #00aeef;
+        }
+
+        #navbutton {
+            background-color: #00aeef;
+            color: #ffffff;
+            border-color: transparent;
+        }
+
+        #navbutton:hover {
+            cursor: pointer;
+        }
+
+        .modal-content {
+            background-color: #00aeef;
+            color: #ffffff;
+        }
+
+        button.modalButton {
+            background-color: #ffffff;
+            color: #00aeef;
+            border-color: #00aeef;
+        }
+
+        button.modalButton:hover {
+            background-color: #00aeef;
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        button.close {
+            color: #ffffff;
+        }
+
+        button.close:hover {
+            color: #ffffff;
+        }
+
+        #header {
+            background: url("https://www.workingspirit.nl/assets/Uploads/HeaderAfbeeldingen/HH-60257639.jpg") no-repeat center top fixed;
+            background-size: cover;
+            color: #ffffff;
+            padding-top: 5%;
+            padding-bottom: 2%;
+        }
+
+        .agenda-top {
+            padding-left: 31%;
+        }
+
+        #agenda {
+            opacity: 0.8;
+            background-color: #00aeef;
+            color: #ffffff;
+            font-size: 12px;
+            position: absolute;
+            bottom: 0;
+            width: 50%;
+        }
+
+        #agenda th {
+            text-transform: uppercase;
+            text-align: left;
+            padding: 1%;
+            border-color: transparent;
+            border-bottom-color: #ffffff;
+            color: #ffffff;
+        }
+
+        #agenda td {
+            text-align: left;
+            padding: 1%;
+            border-color: transparent;
+            border-bottom-color: #ffffff;
+        }
+        
+        #agenda tbody tr:hover td {
+            opacity: 1.0;
+            background-color: #ffffff;
+            color: #00aeef;
+        }
+
+        #headtext {
+            font-weight: bold;
+            font-size: 60px;
+            line-height: 65px;
+            margin-bottom: 10px;
+            padding-top: 28%;
+        }
+
+        .textlogo {
+            font-weight: bold;
+            font-size: 40px;
+            line-height: 35px;
+        }
+
+        .textlogo p {
+            display: inline;
+            color: #00aeef;
+        }
+
+        #mainbody {
+            background: #ffffff;
+            color: #808285;
+            font-size: 14px;
+        }
+
+        .sideimg {
+            width: 100%;
+            height: auto;
+            padding-top: 1%;
+        }
+
+        .row {
+            padding-top: 2.5%;
+        }
+
+        #login {
+            background-color: #00aeef;
+            color: #ffffff;
+            border-color: #00aeef;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .introtitel {
+            font-size: 26px;
+        }
+
+        #introtext {
+            color: #00aeef;
+            font-size: 16px;
+        }
+
+        #introtext a {
+            color: #00aeef;
+        }
+
+        #table-bottom th {
+            text-transform: uppercase;
+            color: #00aeef;
+        }
+        
+        #table-bottom, th, td {
+            border-bottom: 1px solid;
+            border-bottom-color: #00aeef;
+            text-align: left;
+        }
+
+        #bottomrow {
+            padding-bottom: 5%;
+        }
+
+        #footer {
+            padding-top: 0.5%;
+            background-color: rgb(0, 174, 239);
+            background-image: url("https://www.workingspirit.nl/themes/workingspirit/images/pattern.png");
+            /* background-repeat: repeat-x; */
+            background-size: auto 100%;
+            color: #ffffff;
+            height: 400px;
+        }
+
+        #contactinfo {
+            font-size: 12px !important;
+            line-height: 1.7;
+            word-wrap: break-word;
+        }
+
+        #contactinfo a {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR HIER -->
+    <nav class="navbar navbar-expand-sm fixed-top" id="navbar">
+        <div class="container-fluid">
+            <!-- Brand/logo -->
+            <a class="navbar-brand" href="#">
+                <img src="https://www.workingspirit.nl/themes/workingspirit/images/beeldmerk_blue.png" alt="logo"
+                    style="width:40px;">
+            </a>
+
+            <!-- Links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link 2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link 3</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary" data-toggle="modal" data-target="#loginModal" id="navbutton">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalTitle ">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-5">
+                        E-mailadres
+                        <input type="text" id="email">
+                    </div>
+                    <div class="col-sm-5">
+                        Wachtwoord
+                        <input type="password" maxlength="25" id="password" onkeypress="loginEnter()"> <!-- minlength="8" -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p id="foutmelding"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary modalButton" onclick="login()">Login</button>
+                <button type="button" class="btn btn-secondary modalButton" data-dismiss="modal">Sluiten</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4">
+                    <a href="https://workingspirit.nl/">
+                        <img src="https://www.workingspirit.nl/themes/workingspirit/images/beeldmerk.svg"
+                            alt="Working Spirit beeldmerk">
+                    </a>
+                </div>
+                <div class="col-sm-5">
+                    <h1 class="textlogo">
+                        Working <br>
+                        Spirit
+                        <p>Bootcamp</p>
+                    </h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h2 id="headtext">
+                        Verrijk je kennis en doe mee met de bootcamp!
+                    </h2>
+                </div>
+                <div class="col agenda-top">
+                    <!-- AGENDA TOP -->
+                    <table class="table" id="agenda">
+                        <thead>
+                            <tr>
+                                <th width="20%">Datum</th>
+                                <th>Tijd</th>
+                                <th>Info</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Maandag 15 juli</td>
+                                <td>
+                                    11.00-17.00 uur
+                                </td>
+                                <td>
+                                    Installatiehulp (tot 12.30)<br>
+                                    Inloop (tot 13.00)<br>
+                                    Start bootcamp
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Dinsdag 16 juli</td>
+                                <td>09.30-17.00 uur</td>
+                                <td>Beginselen Java</td>
+                            </tr>
+                            <tr>
+                                <td>Woensdag 17 juli</td>
+                                <td>
+                                    09.30-17.00 uur
+                                </td>
+                                <td>
+                                    Teamwork (tot 14.00)<br>
+                                    Presentaties (tot 16.00)<br>
+                                    Borrel (tot 17.00)
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN BODY -->
+    <div id="mainbody">
+        <div class="container-fluid">
+        <!-- MAIN BODY HEAD -->
+        <div class="row">
+            <div class="col-sm-9" id="introtext">
+                <b>Bootcamp</b><br>
+                De assessments en persoonlijke gesprekken leveren een in potentie geschikte groep kandidaten op.
+                Deze groep is echter divers qua achtergrond.
+                Om de ‘echte’ ICT-ers te selecteren, vindt een driedaagse bootcamp plaats die mede georganiseerd wordt
+                door al
+                eerder geslaagde Working Spirit Academy-kandidaten.
+                De bootcamp is het laatste selectiemiddel in de procedure en tevens ook het belangrijkste.
+                <br> <br>
+                Het doel van deze bootcamp is tweeledig: <br>
+                <ul>
+                    <li>Ten eerste worden tijdens de bootcamp de basisbeginselen van de aan te leren ontwikkeltaal of
+                        andere
+                        ICT-discipline aangeleerd.
+                        Na afloop van de bootcamp weten wij, maar ook de kandidaat op welke gebieden er bijgespijkerd
+                        moet worden
+                        voordat er met het uiteindelijke opleidingsprogramma gestart wordt. </li>
+                    <li>Ten tweede wordt hier het kaf van het koren gescheiden: een CV kan er prima uit zien, maar in de
+                        bootcamp
+                        mag dat in de praktijk getoond worden. </li>
+                </ul>
+
+                Het doel van de bootcamp is niet de selectie van ervaren ICT-ers, het doel is om de mensen met de juiste
+                houding, ambitie en potentie te selecteren.
+                <br>
+                <br>
+                <b>Voorbereiding</b><br>
+                Voordat de Bootcamp start worden de kandidaten gewezen op zelfstudie mogelijkheden die kunnen worden
+                gevolgd ter
+                voorbereiding.
+                Hiertoe kan men <a
+                    href="https://www.workingspirit.nl/tutorial">https://www.workingspirit.nl/tutorial</a>
+                bezoeken. Deze pagina zal worden aangepast met de gevraagde technieken die naar voren komen in het
+                profiel en de
+                te volgen opleiding.
+                <br>
+            </div>
+            <div class="col-sm-3">
+                <img src="https://media.licdn.com/dms/image/C4E22AQEt6qMdU4y3JA/feedshare-shrink_8192/0?e=1563408000&v=beta&t=XnGy0yXPlZW9oi99qib1UvQbqybOqlwHjHueQnz5yb8"
+                    class="sideimg">
+            </div>
+            <div class="col"></div>
+        </div>
+
+        <!-- MAIN BODY INTROS -->
+        <div>
+            <!-- FIRST ROW -->
+            <div class="row">
+                <div class="col-sm-4 introtitel">
+                    introductie bootcamp, dag 1 en 2
+                </div>
+                <div class="col-sm-5">
+                    De kandidaten gaan 3 dagen interactief aan de slag, zowel zelfstandig als in groepsverband.
+                    De eerste 2 dagen wordt de theorie behandeld en huiswerk gemaakt.
+                </div>
+                <div class="col-sm-3">
+
+                </div>
+            </div>
+
+            <!-- SECOND ROW -->
+            <div class="row">
+                <div class="col-sm-4 introtitel">
+                    introductie bootcamp, dag 3
+                </div>
+                <div class="col-sm-5">
+                    Op de 3e dag worden groepen gevormd waarbij rekening wordt gehouden met het niveau van alle
+                    kandidaten.
+                    Voor velen tevens de eerste kennismaking met de Scrum werkwijze.
+                    De samenstelling is zodanig dat er van ieder niveau een persoon in de groep zit.
+                    Hierdoor vindt er meer kennisdeling plaats en is er sprake van meer interactie gedurende het werken
+                    aan de
+                    opdracht.
+                    De kandidaten gaan aan de slag op 2 laptops met 3 personen, waarbij je ieder uur wisselt van rol.
+                    De Bootcamp eindigt met een presentatie waarvoor de klant wordt uitgenodigd.
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+
+            <!-- THIRD ROW -->
+            <div class="row" id="bottomrow">
+                <div class="col-sm-4 introtitel">
+                    Agenda
+                </div>
+                <div class="col-sm-5">
+                    <table id="table-bottom">
+                        <tr>
+                            <th>Datum</th>
+                            <th width="30%">Tijd</th>
+                            <th>Info</th>
+                        </tr>
+                        <tr>
+                            <td>Maandag 15 juli</td>
+                            <td>11.00-12.30 uur </td>
+                            <td>Installatiehulp. Als je de installatie zelf kunt afronden zal dit onderdeel niet
+                                interessant voor je
+                                zijn.</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>12.30-13.00 uur </td>
+                            <td>Inloop</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>13.00-17.00 uur</td>
+                            <td>Start bootcamp</td>
+                        </tr>
+                        <tr>
+                            <td>Dinsdag 16 juli</td>
+                            <td>09.30-17.00 uur</td>
+                            <td>Beginselen Java</td>
+                        </tr>
+                        <tr>
+                            <td>Woensdag 17 juli</td>
+                            <td>09.30-14.00 uur</td>
+                            <td>Teamwork</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>14.00-16.00 uur</td>
+                            <td>Presentaties</td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>16.00-17.00 uur</td>
+                            <td>Borrel</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="row" id="footer">
+        <div class="container-fluid">
+        <div class="row">
+        <div class="col-sm-4">
+            <a href="https://workingspirit.nl/">
+                <img src="https://www.workingspirit.nl/themes/workingspirit/images/beeldmerk.svg"
+                    alt="Working Spirit beeldmerk">
+            </a>
+        </div>
+        <div class="col-sm-5">
+            <h1 class="textlogo">
+                Working <br>
+                Spirit
+            </h1>
+            <br>
+            <div class="row" id="contactinfo">
+                <p>
+                    <div class="col-sm-4">
+                        Keulenstraat 11 <br>
+                        7418 ET <br>
+                        Deventer <br>
+                        0570 51 38 38 <br>
+                        info@workingspirit.nl <br>
+                        <br>
+                        Postbus 2075 <br>
+                        7420 AB Deventer <br>
+                        <br>
+                        <a href="https://www.workingspirit.nl/privacy-verklaring">
+                            Privacy verklaring
+                        </a> <br>
+                        <br>
+                    </div>
+                    <div class="col">
+                        Daalwijkdreef 47 <br>
+                        1103 AD <br>
+                        Amsterdam-Zuidoost <br>
+                    </div>
+                </p>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <!-- Twitter? -->
+        </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
