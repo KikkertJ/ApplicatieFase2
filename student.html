@@ -15,13 +15,20 @@
                     var JSONResponseText = JSON.parse(this.responseText);
                     console.log(JSONResponseText);
                     var getal;
-                    for (getal = JSONResponseText.length -1;getal >= 0; getal -=1){
+                    // for (getal = JSONResponseText.length -1;getal >= 0; getal -=1){
+                    //     console.log(JSONResponseText[getal].beschrijving);
+                    //     result += JSONResponseText[getal].titel + "<br>";
+                    //     result += JSONResponseText[getal].code + "<br>";
+                    //     result += JSONResponseText[getal].beschrijving + "<br>" + "<br>";
+            
+                    // }
+                    for(getal = 0; getal < JSONResponseText.length; getal += 1){
                         console.log(JSONResponseText[getal].beschrijving);
                         result += JSONResponseText[getal].titel + "<br>";
-                        result += JSONResponseText[getal].code + "<br>";
-                        result += JSONResponseText[getal].beschrijving + "<br>" + "<br>";
-            
+                        result += JSONResponseText[getal].beschrijving + "<br>";
+                        result += JSONResponseText[getal].code + "<br>" + "<br>";
                     }
+
                     var elem = document.getElementById("dag1");
                     elem.innerHTML = result;
 

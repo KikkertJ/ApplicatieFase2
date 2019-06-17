@@ -26,8 +26,22 @@
                 if (this.readyState == 4) {
                     console.log(this.response);
 
-                    if (this.response == "true") {
-                        window.location.href = 'student.html';
+                    if (this.response) {
+                        var inlogGebruiker = JSON.parse(this.responseText);
+                        switch(inlogGebruiker.rol){
+                            case "STUDENT": {
+                                window.location.href = 'student.html';
+                                break;
+                            }
+                            case "DOCENT": {
+                                document.getElementById("foutmelding").innerHTML = "Docenten kunnen niet inloggen, man."
+                                break;
+                            }
+                            default: {
+                                document.getElementById("foutmelding").innerHTML = "Je bent niet bevoegd om in te loggen."
+                                break;
+                            }
+                        }
                     } else {
                         document.getElementById("foutmelding").innerHTML = "Het e-mailadres of wachtwoord is onjuist."
                     }
@@ -148,6 +162,7 @@
             opacity: 1.0;
             background-color: #ffffff;
             color: #00aeef;
+            cursor: pointer;
         }
 
         #headtext {
@@ -256,13 +271,13 @@
             <!-- Links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link 1</a>
+                    <a class="nav-link" href="#introtext">Bootcamp</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link 2</a>
+                    <a class="nav-link" href="#dag1">Daginformatie</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link 3</a>
+                    <a class="nav-link" href="#bottomrow">Agenda</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link btn btn-primary" data-toggle="modal" data-target="#loginModal" id="navbutton">Login</a>
@@ -340,7 +355,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr onclick="document.location = 'index.html#dag1';">
                                 <td>Maandag 15 juli</td>
                                 <td>
                                     11.00-17.00 uur
@@ -351,12 +366,13 @@
                                     Start bootcamp
                                 </td>
                             </tr>
-                            <tr>
+
+                            <tr onclick="document.location = 'index.html#dag1';">
                                 <td>Dinsdag 16 juli</td>
                                 <td>09.30-17.00 uur</td>
                                 <td>Beginselen Java</td>
                             </tr>
-                            <tr>
+                            <tr onclick="document.location = 'index.html#dag3';">
                                 <td>Woensdag 17 juli</td>
                                 <td>
                                     09.30-17.00 uur
@@ -426,7 +442,7 @@
         <!-- MAIN BODY INTROS -->
         <div>
             <!-- FIRST ROW -->
-            <div class="row">
+            <div class="row" id="dag1">
                 <div class="col-sm-4 introtitel">
                     introductie bootcamp, dag 1 en 2
                 </div>
@@ -440,7 +456,7 @@
             </div>
 
             <!-- SECOND ROW -->
-            <div class="row">
+            <div class="row" id="dag3">
                 <div class="col-sm-4 introtitel">
                     introductie bootcamp, dag 3
                 </div>
