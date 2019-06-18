@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="nl">
 
 <head>
     <!-- Required meta tags -->
@@ -28,17 +28,26 @@
 
                     if (this.response) {
                         var inlogGebruiker = JSON.parse(this.responseText);
+                        var naamGebruiker;
+                        var naamInlogGebruiker = inlogGebruiker.naam;
+                        console.log(naamInlogGebruiker);
+                        sessionStorage.setItem("naamGebruiker", naamInlogGebruiker);
+
                         switch(inlogGebruiker.rol){
                             case "STUDENT": {
                                 window.location.href = 'student.html';
                                 break;
                             }
                             case "DOCENT": {
-                                document.getElementById("foutmelding").innerHTML = "Docenten kunnen niet inloggen, man."
+                                window.location.href = 'docent.html';
+                                break;
+                            }
+                            case "ADMIN": {
+                                window.location.href = 'admin.html';
                                 break;
                             }
                             default: {
-                                document.getElementById("foutmelding").innerHTML = "Je bent niet bevoegd om in te loggen."
+                                document.getElementById("foutmelding").innerHTML = "Je bent niet bevoegd om in te loggen.";
                                 break;
                             }
                         }
