@@ -36,12 +36,6 @@
                     var JSONResponseText = JSON.parse(this.responseText);
                     console.log(JSONResponseText);
                     var getal;
-                    // for (getal = JSONResponseText.length -1;getal >= 0; getal -=1){
-                    //     console.log(JSONResponseText[getal].beschrijving);
-                    //     result += JSONResponseText[getal].titel + "<br>";
-                    //     result += JSONResponseText[getal].code + "<br>";
-                    //     result += JSONResponseText[getal].beschrijving + "<br>" + "<br>";
-                    // }
 
                     for (getal = 0; getal < JSONResponseText.length; getal += 1) {
                         console.log(JSONResponseText[getal].beschrijving);
@@ -284,7 +278,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <h2 id="headtext">
-                        Welkom <p id="inlognaam"></p><br> op de bootcamp studentpagina!
+                        Welkom <p id="inlognaam"></p><br> op de bootcamp docentpagina!
                     </h2>
                 </div>
                 <div class="col agenda-top">
@@ -339,7 +333,7 @@
                 <div class="row">
                     <div class="col-sm-9" id="introtext">
                         <b>Bootcamp</b><br>
-                        Informatie voor student, specifiek maar algemeen.
+                        Informatie voor docent, specifiek maar algemeen.
                     </div>
                     <div class="col-sm-3">
 
@@ -349,7 +343,7 @@
 
                 <div class="row">
                     <div class="col-sm-8">
-                        Welkom student!
+                        Welkom docent!
                         <p id=lesstof></p>
                     </div>
                     <div class="col">

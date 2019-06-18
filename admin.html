@@ -13,9 +13,11 @@
     <title>Working Spirit Bootcamp</title>
 
     <script>
+        var server = "http://localhost:8082";
+
         window.onload = function () {
             console.log(sessionStorage);
-            opvragenLesstof();
+            laadStudenten();
             showName();
         }
 
@@ -27,36 +29,46 @@
             }
         }
 
-        function opvragenLesstof() {
-            var htmlrequest = new XMLHttpRequest();
-            var result = "";
-            htmlrequest.onreadystatechange = function () {
+        function laadStudenten() {
+            var xhr = new XMLHttpRequest();
+            var studentTabel = "";
+            xhr.onreadystatechange = function () {
                 if (this.readyState == 4) {
-                    console.log("in htmlrequest" + this.responseText + this.readyState);
-                    var JSONResponseText = JSON.parse(this.responseText);
-                    console.log(JSONResponseText);
+                    console.log(this.responseText)
+                    var studentenlijst = JSON.parse(this.responseText);
+                    console.log(studentenlijst);
                     var getal;
-                    // for (getal = JSONResponseText.length -1;getal >= 0; getal -=1){
-                    //     console.log(JSONResponseText[getal].beschrijving);
-                    //     result += JSONResponseText[getal].titel + "<br>";
-                    //     result += JSONResponseText[getal].code + "<br>";
-                    //     result += JSONResponseText[getal].beschrijving + "<br>" + "<br>";
-                    // }
-
-                    for (getal = 0; getal < JSONResponseText.length; getal += 1) {
-                        console.log(JSONResponseText[getal].beschrijving);
-                        result += JSONResponseText[getal].titel + "<br>";
-                        result += JSONResponseText[getal].beschrijving + "<br>";
-                        result += JSONResponseText[getal].code + "<br>" + "<br>";
+                    studentTabel += "<table class='table table-bordered col-lg-9'><thead><th>#</th><th>Voornaam</th><th>Achternaam</th><th>Email</th><th>Wachtwoord</th><th>Rol</th><th>Wijzig/Verwijder</th></thead><tbody>";
+                    for (getal = 0; getal < studentenlijst.length; getal += 1) {
+                        studentTabel += "<tr>";
+                        studentTabel += "<td>" + (getal + 1) + "</td>";
+                        studentTabel += "<td>" + studentenlijst[getal].voornaam + "</td>";
+                        studentTabel += "<td>" + studentenlijst[getal].achternaam + "</td>";
+                        studentTabel += "<td>" + studentenlijst[getal].emailadres + "</td>";
+                        studentTabel += "<td>" + studentenlijst[getal].wachtwoord + "</td>";
+                        studentTabel += "<td>" + studentenlijst[getal].rol + "</td>";
+                        studentTabel += "<td>" + "<a href='#showmenu' onclick='toggler()';>Pennetje</a> & Prullenbakkie" + "</td>";
+                        studentTabel += "</tr>";
                     }
-
-                    var elem = document.getElementById("lesstof");
-                    elem.innerHTML = result;
-
+                    studentTabel += "</tbody></table>";
+                    document.getElementById("studenten").innerHTML = studentTabel;
                 }
             }
-            htmlrequest.open("GET", "http://localhost:8082/VraagLesstofOp", true);
-            htmlrequest.send();
+            xhr.open("GET", server + "/AlleGebruikers/STUDENT", true);
+            xhr.send();
+        }
+
+        $(window).scroll(function(){
+            $('#sidescroll').css('top', $(this).scrollTop() + "px");
+        });
+
+        function toggler() {
+            var menu = document.getElementById("showmenu");
+            if(menu.style.display === "none") {
+                menu.style.display = "block";
+            } else {
+                menu.style.display = "none";
+            }
         }
 
     </script>
@@ -169,6 +181,36 @@
             background: #ffffff;
             color: #808285;
             font-size: 14px;
+        }
+
+        #sidescroll {
+            padding-left: 7.5%;
+        }
+
+        .sidescroll {
+            background-color: #00aeef;
+            color: #ffffff;
+            width: 100%;
+            height: auto;
+            padding: 5%;
+            top: 6.5%;
+            border-radius: 15px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .sidescroll #sendbutton {
+            background-color: #ffffff;
+            color: #00aeef;
+            border-color: transparent;
+        }
+
+        .sidescroll #sendbutton:hover {
+            background-color: #00aeef;
+            color: #ffffff;
+            border-color: #ffffff;
         }
 
         .row {
@@ -284,7 +326,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <h2 id="headtext">
-                        Welkom <p id="inlognaam"></p><br> op de bootcamp studentpagina!
+                        Welkom <p id="inlognaam"></p><br> op de bootcamp adminpagina!
                     </h2>
                 </div>
                 <div class="col agenda-top">
@@ -337,11 +379,11 @@
         <div class="row">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-9" id="introtext">
-                        <b>Bootcamp</b><br>
-                        Informatie voor student, specifiek maar algemeen.
+                    <div class="col-sm-8" id="introtext">
+                        <b>Studenten</b><br>
+                        Bekijk, wijzig of verwijder hier de studenten.
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
 
                     </div>
                     <div class="col"></div>
@@ -349,27 +391,89 @@
 
                 <div class="row">
                     <div class="col-sm-8">
-                        Welkom student!
-                        <p id=lesstof></p>
+                        <p id=studenten></p>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
+                        a <br>
                     </div>
-                    <div class="col">
-
-                    </div>
-                </div>
-                <div class="row" id="bottomrow">
-                    <div class="col">
-                        <h2>Lever je code in</h2>
-                        <form action="/action_page.php">
-                            <div class="form-group">
-                                <input type="opdracht" class="form-control" id="opdracht"
-                                    placeholder="Voer opdrachtnummer in" name="opdrachtnummer" required>
-                            </div>
-                            <div class="form-group">
-                                <textarea class="form-control" rows="10" id="code" placeholder="Voer code in"
-                                    name="code" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary" id="submitbutton">Verzenden</button>
-                        </form>
+                    <div class="col-sm-4" id="sidescroll">
+                        <div class="sidescroll sticky-top hidden" id="showmenu">
+                            <button type="button" class="close" aria-label="Close" onclick="toggler()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <!-- <h3>Gebruiker</h3> -->
+                            <p><b>Voeg een nieuwe gebruiker toe of wijzig een huidige gebruiker.</b></p>
+                            <form action="/action_page.php" class="was-validated">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="uname" placeholder="Voornaam"
+                                        name="uname" required>
+                                    <div class="valid-feedback">Correct.</div>
+                                    <div class="invalid-feedback">Vul dit veld in.</div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="uname" placeholder="Achternaam"
+                                        name="uname" required>
+                                    <div class="valid-feedback">Correct.</div>
+                                    <div class="invalid-feedback">Vul dit veld in.</div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="uname" placeholder="Emailadres"
+                                        name="uname" required>
+                                    <div class="valid-feedback">Correct.</div>
+                                    <div class="invalid-feedback">Vul dit veld in.</div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="pwd" placeholder="Wachtwoord"
+                                        name="pswd" required>
+                                    <div class="valid-feedback">Correct.</div>
+                                    <div class="invalid-feedback">Vul dit veld in.</div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="pwd" placeholder="Rol"
+                                        name="pswd" pattern="[A-Z]*" required>
+                                    <div class="valid-feedback">Correct.</div>
+                                    <div class="invalid-feedback">Vul dit veld in. Alleen hoofdletters.</div>
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="sendbutton">Verzenden</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
