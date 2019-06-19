@@ -61,11 +61,11 @@
         function postGebruiker() {
             var xhr = new XMLHttpRequest();
             var gebruiker = {};
-            gebruiker.voornaam = document.getElementById("voornaam");
-            gebruiker.achternaam = document.getElementById("achternaam");
-            gebruiker.emailadres = document.getElementById("email");
-            gebruiker.wachtwoord = document.getElementById("wachtwoord");
-            gebruiker.rol = document.getElementById("rol");
+            gebruiker.voornaam = document.getElementById("voornaam").value;
+            gebruiker.achternaam = document.getElementById("achternaam").value;
+            gebruiker.emailadres = document.getElementById("email").value;
+            gebruiker.wachtwoord = document.getElementById("wachtwoord").value;
+            gebruiker.rol = document.getElementById("rol").value;
 
             var JSONgebruiker = JSON.stringify(gebruiker);
             console.log(JSONgebruiker);
@@ -470,31 +470,31 @@
                             <form class="was-validated">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="voornaam" placeholder="Voornaam"
-                                        name="uname" required>
+                                        required>
                                     <div class="valid-feedback">Correct.</div>
                                     <div class="invalid-feedback">Vul dit veld in.</div>
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="achternaam" placeholder="Achternaam"
-                                        name="uname" required>
+                                        required>
                                     <div class="valid-feedback">Correct.</div>
                                     <div class="invalid-feedback">Vul dit veld in.</div>
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="email" placeholder="Emailadres"
-                                        name="uname" required>
+                                        required>
                                     <div class="valid-feedback">Correct.</div>
                                     <div class="invalid-feedback">Vul dit veld in.</div>
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="wachtwoord" placeholder="Wachtwoord"
-                                        name="pswd" required>
+                                       required>
                                     <div class="valid-feedback">Correct.</div>
                                     <div class="invalid-feedback">Vul dit veld in.</div>
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="rol" placeholder="Rol"
-                                        name="uname" pattern="[A-Z]*" required>
+                                        pattern="[A-Z]*" required>
                                     <div class="valid-feedback">Correct.</div>
                                     <div class="invalid-feedback">Vul dit veld in. Alleen hoofdletters.</div>
                                 </div>
