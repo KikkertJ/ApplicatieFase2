@@ -47,7 +47,9 @@
                         studentTabel += "<td>" + studentenlijst[getal].emailadres + "</td>";
                         studentTabel += "<td>" + studentenlijst[getal].wachtwoord + "</td>";
                         studentTabel += "<td>" + studentenlijst[getal].rol + "</td>";
-                        studentTabel += "<td>" + "<a onclick='toggler2(studentenlijst[getal].id)';>Pennetje</a> & Prullenbakkie" + "</td>";
+                        var gebruikerID = studentenlijst[getal].id;
+                        console.log(gebruikerID);
+                        studentTabel += "<td>" + "<a onclick='toggler2(); geefId(" + gebruikerID + ")';>Pennetje</a> & Prullenbakkie" + "</td>";
                         studentTabel += "</tr>";
                     }
                     studentTabel += "</tbody></table>";
@@ -83,6 +85,8 @@
         function wijzigGebruiker() {
             var xhr = new XMLHttpRequest();
             var gebruiker = {};
+            gebruiker.id = sessionStorage.getItem("gebruikerID");
+            console.log(gebruiker.id);
             gebruiker.voornaam = document.getElementById("wijzigvoornaam").value;
             gebruiker.achternaam = document.getElementById("wijzigachternaam").value;
             gebruiker.emailadres = document.getElementById("wijzigemail").value;
@@ -111,13 +115,22 @@
             }
         }
 
-        function toggler2(iDGebruiker) {
+        function toggler2() {
             var menu = document.getElementById("wijzigmenu");
             if (menu.style.display === "none") {
                 menu.style.display = "block";
             } else {
                 menu.style.display = "none";
             }
+        }
+
+        function geefId(divId) {
+            console.log("geef id");
+            console.log(divId);
+            document.getElementById("idHier").innerHTML = divId;
+            var gebruikerID;
+            sessionStorage.setItem("gebruikerID", divId);
+            console.log(sessionStorage);
         }
 
     </script>
@@ -536,6 +549,7 @@
                             </button>
                             <!-- <h3>Gebruiker</h3> -->
                             <p><b>Wijzig een huidige gebruiker.</b></p>
+                            <p id="idHier">ID</p>
                             <form class="was-validated">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="wijzigvoornaam" placeholder="Voornaam"
