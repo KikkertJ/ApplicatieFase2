@@ -15,7 +15,7 @@
     <script>
         var server = "http://localhost:8082";
 
-        window.onload = function() {
+        window.onload = function () {
             console.log(sessionStorage);
             laadStudenten();
             showName();
@@ -32,8 +32,8 @@
         function laadStudenten() {
             var xhr = new XMLHttpRequest();
             var studentTabel = "";
-            xhr.onreadystatechange = function() {
-                if(this.readyState == 4) {
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
                     console.log(this.responseText)
                     var studentenlijst = JSON.parse(this.responseText);
                     console.log(studentenlijst);
@@ -47,7 +47,7 @@
                         studentTabel += "<td>" + studentenlijst[getal].emailadres + "</td>";
                         studentTabel += "<td>" + studentenlijst[getal].wachtwoord + "</td>";
                         studentTabel += "<td>" + studentenlijst[getal].rol + "</td>";
-                        studentTabel += "<td>" + "<a onclick='toggler()';>Pennetje</a> & Prullenbakkie" + "</td>";
+                        studentTabel += "<td>" + "<a onclick='toggler2(studentenlijst[getal].id)';>Pennetje</a> & Prullenbakkie" + "</td>";
                         studentTabel += "</tr>";
                     }
                     studentTabel += "</tbody></table>";
@@ -70,23 +70,50 @@
             var JSONgebruiker = JSON.stringify(gebruiker);
             console.log(JSONgebruiker);
 
-            xhr.onreadystatechange = function() {
-                if(this.readyState == 4) {
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
                     console.log(this.responseText);
                 }
             }
             xhr.open("POST", server + "/voegGebruikerToe", true);
-            xhr.setRequestHeader("Content-Type","application/json");
+            xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(JSONgebruiker);
         }
 
-        $(window).scroll(function(){
-            $('#sidescroll').css('top', $(this).scrollTop() + "px");
-        });
+        function wijzigGebruiker() {
+            var xhr = new XMLHttpRequest();
+            var gebruiker = {};
+            gebruiker.voornaam = document.getElementById("wijzigvoornaam").value;
+            gebruiker.achternaam = document.getElementById("wijzigachternaam").value;
+            gebruiker.emailadres = document.getElementById("wijzigemail").value;
+            gebruiker.wachtwoord = document.getElementById("wijzigwachtwoord").value;
+            gebruiker.rol = document.getElementById("wijzigrol").value;
+
+            var JSONgebruiker = JSON.stringify(gebruiker);
+            console.log(JSONgebruiker);
+
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    console.log(this.responseText);
+                }
+            }
+            xhr.open("PUT", server + "/WijzigGebruiker", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSONgebruiker);
+        }
 
         function toggler() {
             var menu = document.getElementById("showmenu");
-            if(menu.style.display === "none") {
+            if (menu.style.display === "none") {
+                menu.style.display = "block";
+            } else {
+                menu.style.display = "none";
+            }
+        }
+
+        function toggler2(iDGebruiker) {
+            var menu = document.getElementById("wijzigmenu");
+            if (menu.style.display === "none") {
                 menu.style.display = "block";
             } else {
                 menu.style.display = "none";
@@ -466,7 +493,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <!-- <h3>Gebruiker</h3> -->
-                            <p><b>Voeg een nieuwe gebruiker toe of wijzig een huidige gebruiker.</b></p>
+                            <p><b>Voeg een nieuwe gebruiker toe.</b></p>
                             <form class="was-validated">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="voornaam" placeholder="Voornaam"
@@ -488,17 +515,60 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="wachtwoord" placeholder="Wachtwoord"
-                                       required>
+                                        required>
                                     <div class="valid-feedback">Correct.</div>
                                     <div class="invalid-feedback">Vul dit veld in.</div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="rol" placeholder="Rol"
-                                        pattern="[A-Z]*" required>
+                                    <input type="text" class="form-control" id="rol" placeholder="Rol" pattern="[A-Z]*"
+                                        required>
                                     <div class="valid-feedback">Correct.</div>
                                     <div class="invalid-feedback">Vul dit veld in. Alleen hoofdletters.</div>
                                 </div>
-                                <button class="btn btn-primary" onclick="postGebruiker()" id="sendbutton">Verzenden</button>
+                                <button class="btn btn-primary" onclick="postGebruiker()"
+                                    id="sendbutton">Verzenden</button>
+                            </form>
+                        </div>
+
+                        <div class="sidescroll sticky-top hidden" id="wijzigmenu">
+                            <button type="button" class="close" aria-label="Close" onclick="toggler2()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <!-- <h3>Gebruiker</h3> -->
+                            <p><b>Wijzig een huidige gebruiker.</b></p>
+                            <form class="was-validated">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="wijzigvoornaam" placeholder="Voornaam"
+                                        required>
+                                    <div class="valid-feedback">Correct.</div>
+                                    <div class="invalid-feedback">Vul dit veld in.</div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="wijzigachternaam" placeholder="Achternaam"
+                                        required>
+                                    <div class="valid-feedback">Correct.</div>
+                                    <div class="invalid-feedback">Vul dit veld in.</div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="wijzigemail" placeholder="Emailadres"
+                                        required>
+                                    <div class="valid-feedback">Correct.</div>
+                                    <div class="invalid-feedback">Vul dit veld in.</div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="wijzigwachtwoord" placeholder="Wachtwoord"
+                                        required>
+                                    <div class="valid-feedback">Correct.</div>
+                                    <div class="invalid-feedback">Vul dit veld in.</div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="wijzigrol" placeholder="Rol" pattern="[A-Z]*"
+                                        required>
+                                    <div class="valid-feedback">Correct.</div>
+                                    <div class="invalid-feedback">Vul dit veld in. Alleen hoofdletters.</div>
+                                </div>
+                                <button class="btn btn-primary" onclick="wijzigGebruiker()"
+                                    id="sendbutton">Verzenden</button>
                             </form>
                         </div>
                     </div>
@@ -558,6 +628,11 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+
+            $(window).scroll(function () {
+                $('#sidescroll').css('top', $(this).scrollTop() + "px");
+            });
+
         </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
