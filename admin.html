@@ -15,7 +15,7 @@
     <script>
         var server = "http://localhost:8082";
 
-        window.onload = function () {
+        window.onload = function() {
             console.log(sessionStorage);
             laadStudenten();
             showName();
@@ -32,13 +32,13 @@
         function laadStudenten() {
             var xhr = new XMLHttpRequest();
             var studentTabel = "";
-            xhr.onreadystatechange = function () {
-                if (this.readyState == 4) {
+            xhr.onreadystatechange = function() {
+                if(this.readyState == 4) {
                     console.log(this.responseText)
                     var studentenlijst = JSON.parse(this.responseText);
                     console.log(studentenlijst);
                     var getal;
-                    studentTabel += "<table class='table table-bordered col-lg-9'><thead><th>#</th><th>Voornaam</th><th>Achternaam</th><th>Email</th><th>Wachtwoord</th><th>Rol</th><th>Wijzig/Verwijder</th></thead><tbody>";
+                    studentTabel += "<table class='table table-bordered col-lg-9'><thead><th>#</th><th>Voornaam</th><th>Achternaam</th><th>E-mail</th><th>Wachtwoord</th><th>Rol</th><th>Wijzig/Verwijder</th></thead><tbody>";
                     for (getal = 0; getal < studentenlijst.length; getal += 1) {
                         studentTabel += "<tr>";
                         studentTabel += "<td>" + (getal + 1) + "</td>";
@@ -47,7 +47,7 @@
                         studentTabel += "<td>" + studentenlijst[getal].emailadres + "</td>";
                         studentTabel += "<td>" + studentenlijst[getal].wachtwoord + "</td>";
                         studentTabel += "<td>" + studentenlijst[getal].rol + "</td>";
-                        studentTabel += "<td>" + "<a href='#showmenu' onclick='toggler()';>Pennetje</a> & Prullenbakkie" + "</td>";
+                        studentTabel += "<td>" + "<a onclick='toggler()';>Pennetje</a> & Prullenbakkie" + "</td>";
                         studentTabel += "</tr>";
                     }
                     studentTabel += "</tbody></table>";
@@ -56,6 +56,28 @@
             }
             xhr.open("GET", server + "/AlleGebruikers/STUDENT", true);
             xhr.send();
+        }
+
+        function postGebruiker() {
+            var xhr = new XMLHttpRequest();
+            var gebruiker = {};
+            gebruiker.voornaam = document.getElementById("voornaam");
+            gebruiker.achternaam = document.getElementById("achternaam");
+            gebruiker.emailadres = document.getElementById("email");
+            gebruiker.wachtwoord = document.getElementById("wachtwoord");
+            gebruiker.rol = document.getElementById("rol");
+
+            var JSONgebruiker = JSON.stringify(gebruiker);
+            console.log(JSONgebruiker);
+
+            xhr.onreadystatechange = function() {
+                if(this.readyState == 4) {
+                    console.log(this.responseText);
+                }
+            }
+            xhr.open("POST", server + "/voegGebruikerToe", true);
+            xhr.setRequestHeader("Content-Type","application/json");
+            xhr.send(JSONgebruiker);
         }
 
         $(window).scroll(function(){
@@ -106,6 +128,9 @@
 
         #navbutton:hover {
             cursor: pointer;
+            background-color: #ffffff;
+            color: #00aeef;
+            border-color: #00aeef;
         }
 
         #header {
@@ -299,8 +324,10 @@
                     <a class="nav-link" href="#bottomrow">Agenda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-primary" data-toggle="modal" data-target="#loginModal"
-                        id="navbutton">Uitloggen</a>
+                    <a class="nav-link btn btn-primary" onclick="toggler()" id="navbutton">Nieuwe gebruiker</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary" href="index.html" id="navbutton">Uitloggen</a>
                 </li>
             </ul>
         </div>
@@ -440,38 +467,38 @@
                             </button>
                             <!-- <h3>Gebruiker</h3> -->
                             <p><b>Voeg een nieuwe gebruiker toe of wijzig een huidige gebruiker.</b></p>
-                            <form action="/action_page.php" class="was-validated">
+                            <form class="was-validated">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="uname" placeholder="Voornaam"
+                                    <input type="text" class="form-control" id="voornaam" placeholder="Voornaam"
                                         name="uname" required>
                                     <div class="valid-feedback">Correct.</div>
                                     <div class="invalid-feedback">Vul dit veld in.</div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="uname" placeholder="Achternaam"
+                                    <input type="text" class="form-control" id="achternaam" placeholder="Achternaam"
                                         name="uname" required>
                                     <div class="valid-feedback">Correct.</div>
                                     <div class="invalid-feedback">Vul dit veld in.</div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="uname" placeholder="Emailadres"
+                                    <input type="text" class="form-control" id="email" placeholder="Emailadres"
                                         name="uname" required>
                                     <div class="valid-feedback">Correct.</div>
                                     <div class="invalid-feedback">Vul dit veld in.</div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="pwd" placeholder="Wachtwoord"
+                                    <input type="text" class="form-control" id="wachtwoord" placeholder="Wachtwoord"
                                         name="pswd" required>
                                     <div class="valid-feedback">Correct.</div>
                                     <div class="invalid-feedback">Vul dit veld in.</div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="pwd" placeholder="Rol"
-                                        name="pswd" pattern="[A-Z]*" required>
+                                    <input type="text" class="form-control" id="rol" placeholder="Rol"
+                                        name="uname" pattern="[A-Z]*" required>
                                     <div class="valid-feedback">Correct.</div>
                                     <div class="invalid-feedback">Vul dit veld in. Alleen hoofdletters.</div>
                                 </div>
-                                <button type="submit" class="btn btn-primary" id="sendbutton">Verzenden</button>
+                                <button class="btn btn-primary" onclick="postGebruiker()" id="sendbutton">Verzenden</button>
                             </form>
                         </div>
                     </div>
