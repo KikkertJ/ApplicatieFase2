@@ -28,10 +28,13 @@
 
                     if (this.response) {
                         var inlogGebruiker = JSON.parse(this.responseText);
-                        var naamGebruiker;
-                        var naamInlogGebruiker = inlogGebruiker.naam;
-                        console.log(naamInlogGebruiker);
-                        sessionStorage.setItem("naamGebruiker", naamInlogGebruiker);
+                        var voornaamGebruiker;
+                        var achternaamGebruiker;
+                        var voornaamInlogGebruiker = inlogGebruiker.naam;
+                        var achternaamInlogGebruiker = inlogGebruiker.achterNaam;
+                        console.log(inlogGebruiker);
+                        sessionStorage.setItem("voornaamGebruiker", voornaamInlogGebruiker);
+                        sessionStorage.setItem("achternaamGebruiker", achternaamInlogGebruiker);
 
                         switch(inlogGebruiker.rol){
                             case "STUDENT": {

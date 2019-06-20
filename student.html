@@ -20,10 +20,10 @@
         }
 
         function showName() {
-            if (sessionStorage.getItem("naamGebruiker") == undefined) {
+            if (sessionStorage.getItem("voornaamGebruiker") == undefined && sessionStorage.getItem("achternaamGebruiker") == undefined) {
                 document.getElementById("inlognaam").innerHTML = "stiekemerd";
             } else {
-                document.getElementById("inlognaam").innerHTML = sessionStorage.getItem("naamGebruiker");
+                document.getElementById("inlognaam").innerHTML = sessionStorage.getItem("voornaamGebruiker") + " " + sessionStorage.getItem("achternaamGebruiker");
             }
         }
 
@@ -57,6 +57,30 @@
             }
             htmlrequest.open("GET", "http://localhost:8082/VraagLesstofOp", true);
             htmlrequest.send();
+        }
+
+        function sendAnswer() {
+            var xhr = new XMLHttpRequest;
+            var uitwerking = {};
+            var student = {};
+            student.voornaam = sessionStorage.getItem("voornaamGebruiker");
+            student.achternaam = sessionStorage.getItem("achternaamGebruiker");
+
+            uitwerking.gebruiker = student;
+            uitwerking.code = document.getElementById("code").value;
+            uitwerking.tijdstip = Date.now();
+
+            var JSONuitwerking = JSON.stringify(uitwerking);
+            console.log(JSONuitwerking);
+
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4){
+                    console.log(this.responseText);
+                }
+            }
+            xhr.open("POST", "http://localhost:8082/VoegUitwerkingToe", true)
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSONuitwerking);
         }
 
     </script>
@@ -358,8 +382,8 @@
                 <div class="row" id="bottomrow">
                     <div class="col">
                         <h2>Lever je code in</h2>
-                        <form action="/action_page.php">
-                            <div class="form-group">
+                        <form action="#codeupload">
+                            <div class="form-group" id="codeupload">
                                 <input type="opdracht" class="form-control" id="opdracht"
                                     placeholder="Voer opdrachtnummer in" name="opdrachtnummer" required>
                             </div>
@@ -367,7 +391,7 @@
                                 <textarea class="form-control" rows="10" id="code" placeholder="Voer code in"
                                     name="code" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary" id="submitbutton">Verzenden</button>
+                            <button type="submit" class="btn btn-primary" id="submitbutton" onclick="sendAnswer()">Verzenden</button>
                         </form>
                     </div>
                 </div>

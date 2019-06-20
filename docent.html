@@ -23,7 +23,7 @@
             if (sessionStorage.getItem("naamGebruiker") == undefined) {
                 document.getElementById("inlognaam").innerHTML = "stiekemerd";
             } else {
-                document.getElementById("inlognaam").innerHTML = sessionStorage.getItem("naamGebruiker");
+                document.getElementById("inlognaam").innerHTML = sessionStorage.getItem("voornaamGebruiker") + " " + sessionStorage.getItem("achternaamGebruiker");
             }
         }
 

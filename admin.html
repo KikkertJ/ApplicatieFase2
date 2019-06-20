@@ -5,6 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -25,7 +26,7 @@
             if (sessionStorage.getItem("naamGebruiker") == undefined) {
                 document.getElementById("inlognaam").innerHTML = "stiekemerd";
             } else {
-                document.getElementById("inlognaam").innerHTML = sessionStorage.getItem("naamGebruiker");
+                document.getElementById("inlognaam").innerHTML = sessionStorage.getItem("voornaamGebruiker") + " " + sessionStorage.getItem("achternaamGebruiker");
             }
         }
 
@@ -38,7 +39,7 @@
                     var studentenlijst = JSON.parse(this.responseText);
                     console.log(studentenlijst);
                     var getal;
-                    studentTabel += "<table class='table table-bordered col-lg-9'><thead><th>#</th><th>Voornaam</th><th>Achternaam</th><th>E-mail</th><th>Wachtwoord</th><th>Rol</th><th>Wijzig/Verwijder</th></thead><tbody>";
+                    studentTabel += "<table class='table table-bordered col-lg-9'><thead><th>#</th><th>Voornaam</th><th>Achternaam</th><th>E-mail</th><th>Wachtwoord</th><th>Rol</th><th></th></thead><tbody>";
                     for (getal = 0; getal < studentenlijst.length; getal += 1) {
                         studentTabel += "<tr>";
                         studentTabel += "<td>" + (getal + 1) + "</td>";
@@ -49,7 +50,7 @@
                         studentTabel += "<td>" + studentenlijst[getal].rol + "</td>";
                         var gebruikerID = studentenlijst[getal].id;
                         console.log(gebruikerID);
-                        studentTabel += "<td>" + "<a onclick='toggler2(); geefId(" + gebruikerID + ")';>Pennetje</a> & Prullenbakkie" + "</td>";
+                        studentTabel += "<td nowrap>" + "<a onclick='toggler2(); geefId(" + gebruikerID + ")';><div id='ruimte'><i class='fa fa-pencil' style='font-size:24px; color:#00aeef'></i></a> <a><i class='fa fa-trash' style='font-size:24px; color:#00aeef'></i></a></div>" + "</td>";
                         studentTabel += "</tr>";
                     }
                     studentTabel += "</tbody></table>";
@@ -107,20 +108,24 @@
         }
 
         function toggler() {
-            var menu = document.getElementById("showmenu");
-            if (menu.style.display === "none") {
-                menu.style.display = "block";
+            var menu1 = document.getElementById("showmenu");
+            var menu2 = document.getElementById("wijzigmenu");
+            if (menu1.style.display === "none") {
+                menu1.style.display = "block";
+                menu2.style.display = "none";
             } else {
-                menu.style.display = "none";
+                menu1.style.display = "none";
             }
         }
 
         function toggler2() {
-            var menu = document.getElementById("wijzigmenu");
-            if (menu.style.display === "none") {
-                menu.style.display = "block";
+            var menu1 = document.getElementById("showmenu");
+            var menu2 = document.getElementById("wijzigmenu");
+            if (menu2.style.display === "none") {
+                menu2.style.display = "block";
+                menu1.style.display = "none";
             } else {
-                menu.style.display = "none";
+                menu2.style.display = "none";
             }
         }
 
@@ -246,6 +251,10 @@
             background: #ffffff;
             color: #808285;
             font-size: 14px;
+        }
+
+        .table a {
+            cursor: pointer;
         }
 
         #sidescroll {
@@ -558,8 +567,8 @@
                                     <div class="invalid-feedback">Vul dit veld in.</div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="wijzigachternaam" placeholder="Achternaam"
-                                        required>
+                                    <input type="text" class="form-control" id="wijzigachternaam"
+                                        placeholder="Achternaam" required>
                                     <div class="valid-feedback">Correct.</div>
                                     <div class="invalid-feedback">Vul dit veld in.</div>
                                 </div>
@@ -570,14 +579,14 @@
                                     <div class="invalid-feedback">Vul dit veld in.</div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="wijzigwachtwoord" placeholder="Wachtwoord"
-                                        required>
+                                    <input type="text" class="form-control" id="wijzigwachtwoord"
+                                        placeholder="Wachtwoord" required>
                                     <div class="valid-feedback">Correct.</div>
                                     <div class="invalid-feedback">Vul dit veld in.</div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="wijzigrol" placeholder="Rol" pattern="[A-Z]*"
-                                        required>
+                                    <input type="text" class="form-control" id="wijzigrol" placeholder="Rol"
+                                        pattern="[A-Z]*" required>
                                     <div class="valid-feedback">Correct.</div>
                                     <div class="invalid-feedback">Vul dit veld in. Alleen hoofdletters.</div>
                                 </div>
